@@ -1,39 +1,17 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-const mongoDB = require('./db'); // Import the mongoDB function
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-// Middleware for setting CORS headers
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-// Middleware for parsing JSON bodies
-app.use(express.json());
-
-// Routes for user-related operations
-app.use('/api', require("./Routes/CreateUser"));
-app.use('/api', require("./Routes/DisplayData"));
-
-// Default route
-app.get('/', (req, res) => {
-    res.send('Hello world!....');
-});
-
-// Call the mongoDB function to establish the database connection
-mongoDB()
-    .then(() => {
-        // Database connection successful, start the server
-        app.listen(port, () => {
-            console.log(`Example app listening on port ${port}`);
-        });
-    })
-    .catch((error) => {
-        // Database connection failed, log the error
-        console.error("Failed to connect to MongoDB:", error);
-    });
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
